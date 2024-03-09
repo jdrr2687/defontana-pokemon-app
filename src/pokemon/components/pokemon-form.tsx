@@ -1,13 +1,13 @@
 import { usePokemonContext } from "../context";
-import Dashboard from "./dashboard";
+
 
 const PokemonDetail = () => {
-  const { state, loading } = usePokemonContext();
+  const { state } = usePokemonContext();
 
   const { selected } = state;
 
   return (
-    <section className="hidden lg:block sticky top-0 h-screen">
+    <section className="block">
       <article className={` z-20 top-0 bg-white w-full h-[90%]`}>
         <div className="w-full h-full max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
           {selected ? (
@@ -36,7 +36,7 @@ const PokemonDetail = () => {
               </div>
             </div>
           ) : (
-            <h5 className="mb-1 text-xl font-medium text-gray-900">
+            <h5 className="block w-full my-5 text-xl font-medium text-center">
               Please select a pokemon
             </h5>
           )}
@@ -47,3 +47,4 @@ const PokemonDetail = () => {
 };
 
 export default PokemonDetail;
+

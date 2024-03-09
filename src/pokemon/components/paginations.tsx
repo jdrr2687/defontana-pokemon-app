@@ -1,17 +1,14 @@
-import React from "react";
-import { usePokemonContext } from "../context";
+import usePagination from "../hooks/usePagination";
 
 interface Pagination {
   startIndex: number;
   endIndex: number;
-
 }
 
 const Pagination: React.FC<Pagination> = (props) => {
   const {startIndex, endIndex} = props
-  const { currentPage, totalPages, setCurrentPage, state } = usePokemonContext();
-
-  const totalRecords = state.pokemons.length
+  
+  const {nextPage, prevPage, currentPage, totalPages, totalRows} = usePagination()
 
   return (
     <div className="flex justify-center mt-4">   
@@ -21,16 +18,16 @@ const Pagination: React.FC<Pagination> = (props) => {
           <span className="font-semibold text-gray-900 dark:text-white">{startIndex+1}</span>{" "}
           to{" "}
           <span className="font-semibold text-gray-900 dark:text-white">
-          {endIndex>totalRecords?totalRecords:endIndex}
+          {endIndex>totalRows?totalRows:endIndex}
           </span>{" "}
           of{" "}
           <span className="font-semibold text-gray-900 dark:text-white">
-          {totalRecords}
+          {totalRows}
           </span>{" "}
           Entries
         </span>
         <div className="inline-flex mt-2 xs:mt-0">
-          <button  onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+          <button  onClick={prevPage}
         disabled={currentPage === 1} className="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
             <svg
               className="w-3.5 h-3.5 me-2 rtl:rotate-180"
@@ -50,7 +47,7 @@ const Pagination: React.FC<Pagination> = (props) => {
             Prev
           </button>
           <button
-           onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+           onClick={nextPage}
            disabled={currentPage === totalPages}
           className="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
             Next
@@ -77,3 +74,4 @@ const Pagination: React.FC<Pagination> = (props) => {
 };
 
 export default Pagination;
+

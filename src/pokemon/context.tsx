@@ -2,31 +2,11 @@ import axios from "axios";
 import { createContext, useContext, useReducer } from "react";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../constant/api";
+import { sortArrayByName } from "./common/utils";
+import { PokemonState, Action, PokemonContextType} from "./models/interfaces"; 
+import { PokemonActionTypes } from "./models/types"; 
 
-export interface Action {
-  type: string;
-  payload: any;
-}
 
-export enum PokemonActionTypes {
-  "LOAD" = "load_pokemons",
-  "FIND" = "find_pokemon",
-  "RESET" = "reset",
-}
-
-export interface pokemon {
-  name: string;
-  id: number;
-  url: string;
-  types?: string[];
-  image?: string;
-  description?: string;
-}
-
-export interface PokemonState {
-  pokemons: pokemon[];
-  selected: pokemon | null;
-}
 
 export const emptyState: PokemonState = {
   pokemons: [],
@@ -45,19 +25,7 @@ function Reducer(state: PokemonState, action: Action): PokemonState {
       return state;
   }
 }
-interface PokemonContextType {
-  state: PokemonState;
-  loading: boolean;
-  dispatcher: (_action: Action) => void;
-  setPage: (page: number) => void;
-  currentPage: number;
-  totalPages: number;
-  setCurrentPage: (page: number) => void;
-  findPokemon: (name: string) => void;
-  recordsPerPage:number;
-  filterText:string;
-  setFilterText:(filterText:string) => void;
-}
+
 
 const PokemonContext = createContext<PokemonContextType>({
   state: emptyState,
@@ -68,9 +36,9 @@ const PokemonContext = createContext<PokemonContextType>({
   totalPages: 1,
   setCurrentPage: () => {},
   findPokemon: () => {},
-  recordsPerPage:20,
-  filterText:"",
-  setFilterText:()=>{}
+  recordsPerPage: 20,
+  filterText: "",
+  setFilterText: () => {},
 });
 
 export const PokemonProvider = ({
@@ -83,8 +51,8 @@ export const PokemonProvider = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const [recordsPerPage, setRecordPerPage] = useState<number>(20);
-  const [filterText, setFilterText] = useState<string>('');
+  const [filterText, setFilterText] = useState<string>("");
+  const recordsPerPage: number = 10;
 
   useEffect(() => {
     setLoading(true);
@@ -95,7 +63,7 @@ export const PokemonProvider = ({
         const response = await axios.get(`${BASE_URL}/?limit=1302`);
         dispatcher({
           type: PokemonActionTypes.LOAD,
-          payload: response.data.results,
+          payload: sortArrayByName(response.data.results),
         });
         setTotalPages(Math.ceil(response.data.count / recordsPerPage));
         setLoading(false);
@@ -105,7 +73,6 @@ export const PokemonProvider = ({
     };
 
     fetchData();
-
   }, [currentPage]);
 
   const findPokemon = async (name: string) => {
@@ -115,7 +82,7 @@ export const PokemonProvider = ({
         name: response.data.forms[0].name,
         id: "",
         url: "",
-        types: response.data.types.map((type:any) => type.type.name),
+        types: response.data.types.map((type: any) => type.type.name),
         image:
           response.data.sprites.versions["generation-v"]["black-white"]
             .front_default,
@@ -128,7 +95,6 @@ export const PokemonProvider = ({
       console.error("Error fetching pokémon detail:", error);
     }
   };
-
 
   const setPage = (page: number) => setCurrentPage(page);
 
@@ -145,7 +111,7 @@ export const PokemonProvider = ({
         findPokemon,
         recordsPerPage,
         setFilterText,
-        filterText
+        filterText,
       }}
     >
       {children}
@@ -162,3 +128,4 @@ export const usePokemonContext = () => {
 
   return context;
 };
+
