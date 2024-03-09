@@ -13,7 +13,7 @@ npm run dev
 ```
 4. Ir al navegador preferido y ingresar a la Url: http://localhost:5173/
 
-## Some views
+## Some screenshots
 
 1. Desktop
    ![image](https://github.com/jdrr2687/defontana-pokemon-app/assets/31148267/ce34994f-aa75-49a4-af3e-22b3aed223d8)
