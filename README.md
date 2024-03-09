@@ -1,30 +1,23 @@
-# React + TypeScript + Vite
+## Description
+Aplicación creada con React + Vite + TypeScript. Es un UI que hace uso del api de pokeapi.co
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Installation
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+1. Instalar las dependencias
+```bash
+npm i
 ```
+2. Ejecutar la aplicación
+```bash
+npm run dev
+```
+4. Ir al navegador preferido y ingresar a la Url: http://localhost:5173/
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Some views
+
+1. Desktop
+   ![image](https://github.com/jdrr2687/defontana-pokemon-app/assets/31148267/ce34994f-aa75-49a4-af3e-22b3aed223d8)
+2. Mobile
+![image](https://github.com/jdrr2687/defontana-pokemon-app/assets/31148267/aba6538c-267b-4876-9e84-7c101a7548ca)
+
+   
