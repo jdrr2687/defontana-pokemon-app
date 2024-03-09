@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.dashboard-letter li{
+    float: left;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #3b82f6;
+    border-radius: 5px;
+    color:#ffffff
+}
+
+
+
